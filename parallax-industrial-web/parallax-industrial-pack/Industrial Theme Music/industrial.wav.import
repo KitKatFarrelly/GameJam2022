@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/industrial.wav-e6aaf14f1f35f67dc1e96b3fa42d8a3a.sample"
+
+[deps]
+
+source_file="res://parallax-industrial-web/parallax-industrial-pack/Industrial Theme Music/industrial.wav"
+dest_files=[ "res://.import/industrial.wav-e6aaf14f1f35f67dc1e96b3fa42d8a3a.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
