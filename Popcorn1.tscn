@@ -12,6 +12,7 @@ script = ExtResource( 2 )
 __meta__ = {
 "_edit_group_": true
 }
+enemyspeed = 100
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -30,6 +31,6 @@ wait_time = 0.5
 one_shot = true
 
 [connection signal="body_entered" from="." to="." method="_on_Popcorn1_body_entered"]
-[connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
+[connection signal="viewport_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_viewport_exited"]
 [connection signal="timeout" from="EventTimer" to="." method="_on_EventTimer_timeout"]
 [connection signal="timeout" from="FireTimer" to="." method="_on_FireTimer_timeout"]

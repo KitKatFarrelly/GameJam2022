@@ -1,14 +1,15 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
 [ext_resource path="res://Playerbullet.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Popcorn1.tscn" type="PackedScene" id=4]
 [ext_resource path="res://EnemyBul1.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Stage1.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
-"points": PoolVector2Array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1024, 0 )
+"points": PoolVector2Array( 0, 0, 0, 0, 344, 0, 0, 0, 0, 0, 680, 0 )
 }
 
 [node name="Main" type="Node"]
@@ -18,7 +19,9 @@ popcorn_spawn = ExtResource( 4 )
 enemyBul_inst = ExtResource( 5 )
 
 [node name="StartPosition" type="Position2D" parent="."]
-position = Vector2( 512, 300 )
+position = Vector2( 512, 500 )
+
+[node name="Stage1" parent="." instance=ExtResource( 6 )]
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 
@@ -28,13 +31,13 @@ wait_time = 0.08
 one_shot = true
 
 [node name="SpawnTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 2.0
 
 [node name="SpawnRandom" type="Path2D" parent="."]
 curve = SubResource( 1 )
 
 [node name="SpawnRandLoc" type="PathFollow2D" parent="SpawnRandom"]
-position = Vector2( 511.775, 0 )
+position = Vector2( 680, 0 )
 offset = 513.724
 rotate = false
 

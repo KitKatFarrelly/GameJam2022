@@ -14,6 +14,8 @@ func _ready():
 func new_game():
 	$Player.start($StartPosition.position)
 	$SpawnTimer.start()
+	$Stage1.start()
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if $Player.fireFlag == 1 && $Autofire.is_stopped():

@@ -10,7 +10,7 @@ var patternstate = 0 # where in the pattern is the enemy currently at
 var canFire = 0 # determines whether the enemy can fire or not
 var angle = 0.0 # determines angle in radians for the enemy to travel in
 var moving = 1 # determines whether enemy is stopped or not
-var curvespeed = .5 # determines radians per tick that the angle the enemy is moving at changes when turning
+var curvespeed = 1 # determines radians per tick that the angle the enemy is moving at changes when turning
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -23,6 +23,9 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if(position.x < 320 or position.x > 704):
+		hide()
+		queue_free()
 	if canFire == 0:
 		canFire = -1
 		$FireTimer.start()
@@ -35,6 +38,7 @@ func _process(delta):
 			moving = 0
 		_:
 			moving = 1
+	$Sprite.rotation = -cos(angle)
 	position.x += cos(angle) * enemyspeed * delta * moving
 	position.y += sin(angle) * -enemyspeed * delta * moving # negative bc up is negative.
 
@@ -57,13 +61,12 @@ func _on_EventTimer_timeout():
 func _on_FireTimer_timeout():
 	canFire = 1
 
-
-func _on_VisibilityNotifier2D_screen_exited():
-	hide()
-	queue_free()
-
-
 func _on_Popcorn1_body_entered(body):
-	if(body.name == "Playerbullet"):
+	if("Playerbullet" in body.name):
 		hide()
 		queue_free()
+
+
+func _on_VisibilityNotifier2D_viewport_exited(viewport):
+	hide()
+	queue_free()

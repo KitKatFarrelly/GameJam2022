@@ -4,7 +4,7 @@ extends Area2D
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-export var speed = 60 # How fast the player will move (pixels/sec).
+export var speed = 150 # How fast the player will move (pixels/sec).
 var screen_size # Size of the game window.
 var fireFlag = 0
 signal respawn
@@ -35,8 +35,8 @@ func _process(delta):
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * speed
 	position += velocity * delta
-	position.x = clamp(position.x, 0, screen_size.x)
-	position.y = clamp(position.y, 0, screen_size.y)
+	position.x = clamp(position.x, 336, 688)
+	position.y = clamp(position.y, 16, screen_size.y-16)
 
 func start(pos):
 	position = pos
@@ -45,6 +45,6 @@ func start(pos):
 
 
 func _on_Player_body_entered(body):
-	if(body.name == "EnemyBul1"):
+	if("EnemyBul1" in body.name):
 		hide()
-	emit_signal("respawn")
+		emit_signal("respawn")

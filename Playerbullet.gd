@@ -15,7 +15,11 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if(position.x < 320 or position.x > 704):
+		hide()
+		queue_free()
 	position += velocity * delta
 
-func _on_VisibilityNotifier2D_screen_exited():
+func _on_VisibilityNotifier2D_viewport_exited(viewport):
+	hide()
 	queue_free()
