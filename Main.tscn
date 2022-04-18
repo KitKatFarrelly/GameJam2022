@@ -1,23 +1,43 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Main.gd" type="Script" id=2]
 [ext_resource path="res://Playerbullet.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Popcorn1.tscn" type="PackedScene" id=4]
+[ext_resource path="res://EnemyBul1.tscn" type="PackedScene" id=5]
+
+[sub_resource type="Curve2D" id=1]
+_data = {
+"points": PoolVector2Array( 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1024, 0 )
+}
 
 [node name="Main" type="Node"]
 script = ExtResource( 2 )
 bullet_inst = ExtResource( 3 )
+popcorn_spawn = ExtResource( 4 )
+enemyBul_inst = ExtResource( 5 )
 
 [node name="StartPosition" type="Position2D" parent="."]
 position = Vector2( 512, 300 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 
-[node name="Playerbullet" parent="." instance=ExtResource( 3 )]
-
 [node name="Autofire" type="Timer" parent="."]
 pause_mode = 2
 wait_time = 0.08
 one_shot = true
 
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="SpawnRandom" type="Path2D" parent="."]
+curve = SubResource( 1 )
+
+[node name="SpawnRandLoc" type="PathFollow2D" parent="SpawnRandom"]
+position = Vector2( 511.775, 0 )
+offset = 513.724
+rotate = false
+
+[connection signal="respawn" from="Player" to="." method="_on_Player_respawn"]
 [connection signal="timeout" from="Autofire" to="." method="_on_Autofire_timeout"]
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_SpawnTimer_timeout"]

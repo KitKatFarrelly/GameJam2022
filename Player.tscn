@@ -30,6 +30,7 @@ animations = [ {
 radius = 4.0
 
 [node name="Player" type="Area2D"]
+collision_layer = 2
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
@@ -42,3 +43,5 @@ animation = "Ship"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 5 )
+
+[connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]

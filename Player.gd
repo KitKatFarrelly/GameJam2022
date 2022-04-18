@@ -7,6 +7,7 @@ extends Area2D
 export var speed = 60 # How fast the player will move (pixels/sec).
 var screen_size # Size of the game window.
 var fireFlag = 0
+signal respawn
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,3 +42,9 @@ func start(pos):
 	position = pos
 	show()
 	$CollisionShape2D.disabled = false
+
+
+func _on_Player_body_entered(body):
+	if(body.name == "EnemyBul1"):
+		hide()
+	emit_signal("respawn")
