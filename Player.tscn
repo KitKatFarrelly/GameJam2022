@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Player.gd" type="Script" id=1]
 [ext_resource path="res://SHMUP-Asset-Pack-1/SHMUP-Asset-Pack-1/Sheets/Ships/Variation 2/JetFighter-Var1-Spritesheet.png" type="Texture" id=2]
+[ext_resource path="res://SHMUP-Asset-Pack-1/SHMUP-Asset-Pack-1/Sheets/Ships/Variation 2/JetFighter-Var1-Invis-Spritesheet.png" type="Texture" id=3]
 
 [sub_resource type="AtlasTexture" id=1]
 flags = 4
@@ -18,11 +19,31 @@ flags = 4
 atlas = ExtResource( 2 )
 region = Rect2( 64, 0, 32, 32 )
 
+[sub_resource type="AtlasTexture" id=6]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=7]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=8]
+flags = 4
+atlas = ExtResource( 3 )
+region = Rect2( 64, 0, 32, 32 )
+
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
 "frames": [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ) ],
 "loop": false,
 "name": "Ship",
+"speed": 5.0
+}, {
+"frames": [ SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": false,
+"name": "Invis",
 "speed": 5.0
 } ]
 
@@ -38,9 +59,23 @@ __meta__ = {
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 4 )
-animation = "Ship"
+animation = "Invis"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 5 )
 
+[node name="Respawn Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="iFrames" type="Timer" parent="."]
+one_shot = true
+
+[node name="Invistimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
 [connection signal="body_entered" from="." to="." method="_on_Player_body_entered"]
+[connection signal="timeout" from="Respawn Timer" to="." method="_on_Respawn_Timer_timeout"]
+[connection signal="timeout" from="iFrames" to="." method="_on_iFrames_timeout"]
+[connection signal="timeout" from="Invistimer" to="." method="_on_Invistimer_timeout"]

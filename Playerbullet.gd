@@ -2,9 +2,10 @@ extends RigidBody2D
 
 
 # Declare member variables here. Examples:
-export var bulletspeed = 400 # How fast the player will move (pixels/sec).
+export var bulletspeed = 500 # How fast the player will move (pixels/sec).
 var screen_size # Size of the game window.
 var velocity = Vector2.ZERO # Bullet movement vector
+var damage = 50 # damage bullet does
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

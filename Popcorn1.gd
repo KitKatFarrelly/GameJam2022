@@ -11,6 +11,12 @@ var canFire = 0 # determines whether the enemy can fire or not
 var angle = 0.0 # determines angle in radians for the enemy to travel in
 var moving = 1 # determines whether enemy is stopped or not
 var curvespeed = 1 # determines radians per tick that the angle the enemy is moving at changes when turning
+var shotgun = 2 # determines how many bullets fired per round
+var angoff = (PI / 2) / 45 # angle between bullets in radians
+var distoff = 0 # distance in pixels each bullet is normal to the direction of bullet fire
+var nextang = 0 # next angle this enemy wants to shoot at
+var shottype = 0 # enemy shot type
+var health = 200 # enemy health
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -63,6 +69,8 @@ func _on_FireTimer_timeout():
 
 func _on_Popcorn1_body_entered(body):
 	if("Playerbullet" in body.name):
+		health = health - body.damage
+	if health < 0:
 		hide()
 		queue_free()
 

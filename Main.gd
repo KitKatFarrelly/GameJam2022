@@ -23,19 +23,36 @@ func _process(delta):
 	for pop in get_tree().get_nodes_in_group("enemies"):
 		if pop.canFire == 1:
 			pop.canFire = 0
-			newEnemyBullet(0,pop)
+			newEnemyBullet(pop)
 
 func _on_Autofire_timeout():
-	var newBullet = bullet_inst.instance()
-	newBullet.position = $Player.position
-	add_child(newBullet)
+	var mainshots = 2
+	for n in mainshots: # main shottype
+		var newBullet = bullet_inst.instance()
+		newBullet.position = $Player.position + Vector2(15 * (n - ((mainshots - 1) / 2.0)), 0)
+		add_child(newBullet)
+	#option firing code here
 
-func newEnemyBullet(type,enemyinst):
-	var newEnemyBullet = enemyBul_inst.instance()
-	var aimVec = $Player.position - enemyinst.position
-	newEnemyBullet.setDir(aimVec.normalized())
-	newEnemyBullet.position = enemyinst.position
-	add_child(newEnemyBullet)
+func newEnemyBullet(enemyinst):
+	var aimVec = Vector2(0,1)
+	var normVec = aimVec.rotated(PI/2)
+	var number = enemyinst.shotgun
+	var distRad = enemyinst.angoff
+	var distNorm = enemyinst.distoff
+	
+	if (enemyinst.shottype == 0):
+		if $Player.invis:
+			number = 0
+		else:
+			aimVec = $Player.position - enemyinst.position
+	aimVec = aimVec.normalized()
+	
+	for n in number:
+		var newEnemyBullet = enemyBul_inst.instance()
+		var tempVec = aimVec.rotated(distRad * (n - ((number - 1) / 2.0)))
+		newEnemyBullet.setDir(tempVec)
+		newEnemyBullet.position = enemyinst.position + (normVec * distNorm * (n - ((number - 1) / 2.0)))
+		add_child(newEnemyBullet)
 
 func _on_SpawnTimer_timeout():
 	var newPop = popcorn_spawn.instance()
