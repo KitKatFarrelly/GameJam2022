@@ -10,7 +10,7 @@ var fireFlag = 0
 var invuln = false
 var canFire = false
 var invis = true
-var optioncount = 0
+var optioncount = 1
 signal respawn
 
 # Called when the node enters the scene tree for the first time.
